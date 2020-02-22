@@ -29,3 +29,11 @@ button:hover {
 #dz-root {
   margin-left: 35%;
 }
+form {
+  position: relative;
+}
+#artistFoto {
+  position: absolute;
+  display: block;
+  width: 300px;
+}
