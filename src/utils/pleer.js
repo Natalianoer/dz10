@@ -26,12 +26,6 @@ export async function fetchAPI() {
       console.log(response);
       response.json().then(data=>{
       console.log(data);
-      let pictureArtist = document.getElementById("picture");
-      let imageArtist = document.createElement("img");
-      imageArtist.className = "imageArtist";
-      pictureArtist.appendChild(imageArtist);
-      imageArtist.src = data.picture;
-      //console.log(data.preview);
     });
   }
   else
@@ -43,6 +37,7 @@ export async function fetchAPI() {
 export function inputPleer() {
   let inputSearchName = document.getElementById("inputSearchName");
   let inputSearchTrack = document.getElementById("inputSearchTrack");
+  let artistFoto = document.getElementById("artistFoto");
   let searchBtn = document.getElementById('searchBtn');
   if (searchBtn) {
     searchBtn.addEventListener("click", () => {
@@ -58,15 +53,15 @@ export function inputPleer() {
         else if (inputSearchTrack.value != "") {
             url += "'" + "track:'" + inputSearchTrack.value + "'";
         }
-        //console.log(url);
-
         fetchAPI();
+        //console.log(url);
         request.open('GET', url);
         request.addEventListener("readystatechange", () => {
         if (request.readyState === 4 && request.status === 200) {
             let array = JSON.parse(request.responseText);
             if(typeof array.data[0] != "undefined"){
                 DZ.player.playTracks([array.data[0].id]);
+                artistFoto.src = array.data[0].artist.picture_big;
             }
             else{
                 alert("К сожаления ничего не найдено");
@@ -77,4 +72,4 @@ export function inputPleer() {
     });
   }
 }
-//inputPleer();
+
